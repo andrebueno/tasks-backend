@@ -42,11 +42,17 @@ pipeline {
 				}
 			}
 		}
-		stage('Deploy Frontend'){
+		stage('Build Frontend') {
 			steps{
 				dir('frontend'){
 					git 'https://github.com/andrebueno/tasks-frontend'
 					bat 'mvn clean package'
+				}
+			}
+		}
+		stage('Deploy Frontend'){
+			steps{
+				dir('frontend'){
 					deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8001/')], contextPath: 'tasks', war: 'target/tasks.war'
 				}
 			}
