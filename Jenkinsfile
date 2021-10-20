@@ -57,5 +57,13 @@ pipeline {
 				}
 			}
 		}
+		stage('Functional Tests'){
+			steps{
+				dir('functional-test'){
+					git 'https://github.com/andrebueno/tasks-functional-tests'
+					bat 'mvn test'
+				}
+			}
+		}
 	}
 }
